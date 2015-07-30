@@ -58,8 +58,24 @@ describe User do
       user_with_same_email.save
     end
 
+  describe "passwords" do
+
+    before(:each) do
+      @user = User.new(@attr)
+    end
+
+    it "should have a password attribute" do
+      @user.should respond_to(:password)
+    end
+
+    it "should have a password confirmation attribute" do
+      @user.should respond_to(:password_confirmation)
+    end
+  end
+
     it { should_not be_valid }
   end
+
   describe "when password is not present" do
     before { @user.password = @user.password_confirmation = " " }
     it { should_not be_valid }
@@ -69,12 +85,13 @@ describe User do
     it { should_not be_valid }
   end
 
+
   describe "return value of authenticate method" do
     before { @user.save }
     let(:found_user) { User.find_by(email: @user.email) }
 
   describe "with valid password" do
-    it { should eq found_user.authenticate(@user.password) }
+    it { should == found_user.authenticate(@user.password) }
   end
 
   describe "with invalid password" do
