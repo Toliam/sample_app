@@ -48,6 +48,7 @@ group :production do
 end
 
 group :test, :development do
+  gem 'its'
   gem 'sqlite3', '1.3.8'
   gem 'capybara'
   gem "rspec-rails", "3.2.3"
